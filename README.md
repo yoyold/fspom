@@ -1,5 +1,5 @@
-# fpom
+# fspom
 
-![fpom logo](https://i.ibb.co/Yhp26Gq/fpomlogo150.png)
+![fspom logo](https://i.ibb.co/kSHHfCM/fpomlogo150-2-removebg-preview.png)
 
 A simple pomodoro timer and stopwatch on the command line in F#.
