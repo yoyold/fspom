@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ConsoleApp1": {
+    "fspomApp": {
       "commandName": "Project",
       "commandLineArgs": "start"
     }
