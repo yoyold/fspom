@@ -5,7 +5,7 @@ let updateProgressBar (elapsedRatio : float) =
     let width = 50
     let filledCount = int (elapsedRatio * float width)
     let progressBar = String.replicate filledCount "█" + String.replicate (width - filledCount) "-"
-    printf "\r[%s] %.2f%%" progressBar (elapsedRatio * 100.0)
+    printf "\r\027[36m[%s] %.2f%%\027[0m" progressBar (elapsedRatio * 100.0) // \027[36m is the escape sequence for cyan color
 
 let startStopwatchWithProgressBar durationInSeconds =
     let stopwatch = Stopwatch()
