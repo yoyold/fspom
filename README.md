@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.ibb.co/kSHHfCM/fpomlogo150-2-removebg-preview.png">
+  <img src="https://i.ibb.co/wSYVWNJ/fpomlogo150-2-removebg-preview-1cut.png">
 </p>
 
 # fspom
