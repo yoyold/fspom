@@ -1,22 +1,36 @@
 ﻿open System
 open System.Diagnostics
 
-let startStopwatch () =
+let updateProgressBar (elapsedRatio : float) =
+    let width = 50
+    let filledCount = int (elapsedRatio * float width)
+    let progressBar = String.replicate filledCount "█" + String.replicate (width - filledCount) "-"
+    printf "\r\027[36m[%s] %.2f%%\027[0m" progressBar (elapsedRatio * 100.0) // \027[36m is the escape sequence for cyan color
+
+let startStopwatchWithProgressBar durationInSeconds =
     let stopwatch = Stopwatch()
     printfn "Stopwatch started. Press any key to stop..."
     stopwatch.Start()
 
-    // Wait for any key press to stop the stopwatch
-    Console.ReadKey() |> ignore
+    let mutable elapsedRatio = 0.0
+    while elapsedRatio < 1.0 do
+        let elapsedTime = float stopwatch.ElapsedMilliseconds / 1000.0
+        elapsedRatio <- min (elapsedTime / durationInSeconds) 1.0
+        updateProgressBar elapsedRatio
+        System.Threading.Thread.Sleep(100) // Delay to reduce flickering
 
     stopwatch.Stop()
-    printfn "Stopwatch stopped. Elapsed time: %f seconds" (stopwatch.Elapsed.TotalSeconds)
+    printfn "\nStopwatch stopped. Elapsed time: %.2f seconds" (stopwatch.Elapsed.TotalSeconds)
 
 [<EntryPoint>]
 let main argv =
-    if argv.Length = 1 && argv.[0] = "start" then
-        startStopwatch()
-        0
-    else
-        printfn "Usage: dotnet run start"
-        1
+    printfn "Enter the duration in seconds:"
+    match Console.ReadLine() with
+    | durationString ->
+        match Double.TryParse(durationString) with
+        | true, duration ->
+            startStopwatchWithProgressBar duration
+            0
+        | _ ->
+            printfn "Invalid input. Please enter a valid duration in seconds."
+            1
